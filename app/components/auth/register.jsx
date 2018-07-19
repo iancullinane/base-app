@@ -1,14 +1,9 @@
 
 import React from 'react';
-import PropTypes from 'prop-types';
 
-// Vendor
-import { withStyles } from 'material-ui/styles';
+import Input, { InputLabel } from '@material-ui/core/Input';
+import { FormControl } from '@material-ui/core/Form';
 
-import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
-import { FormControl } from 'material-ui/Form';
-import TextField from 'material-ui/TextField';
-import Grid from 'material-ui/Grid';
 
 
 
