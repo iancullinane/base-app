@@ -1,9 +1,9 @@
 // react
 import React, { Component } from 'react';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 // vendor
-import Grid from 'material-ui/Grid';
+import Grid from '@material-ui/core/Grid';
 
 // source
 import NavBar from 'components/navbar';

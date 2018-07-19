@@ -2,18 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Vendor
-import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
-import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
-import { FormControl } from 'material-ui/Form';
-import Button from 'material-ui/Button';
-import TextField from 'material-ui/TextField';
-import Grid from 'material-ui/Grid';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
 
 // Src
-import { PaperTemplate, GridWrapper } from 'components/body';
-import { Paper } from 'material-ui';
-import { awsUser } from 'utils/aws-user';
+import Paper from '@material-ui/core/Paper';
+
 
 const styles = theme => ({
   root: {
