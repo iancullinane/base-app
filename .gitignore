@@ -1,3 +1,9 @@
-node_modules
+
 .DS_Store
+output
+dist
+public
+yarn.lock
+entr.txt
+node_modules
 
