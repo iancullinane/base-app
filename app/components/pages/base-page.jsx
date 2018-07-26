@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 // Src
-import BasicComponent from 'components/ui/component'
+import { BasicComponent, TopLeftComponent } from '../ui/component';
 
 const styles = theme => ({
   body: {
@@ -19,16 +19,6 @@ class BasePage extends React.Component {
   
   constructor(props){
     super(props);
-    this.state = {
-      products: null,
-      orders: null,
-      current_order: [],
-      selected_product: "",
-      test_product: {
-        name: ""
-      },
-      quantity: 0,
-    }
   }
 
 
@@ -47,6 +37,7 @@ class BasePage extends React.Component {
         <div className={classes.body}>
             <Grid container spacing={8}>
               <Grid item xs={4}>
+                  <TopLeftComponent />
                   <BasicComponent />
               </Grid>
               <Grid item xs={8}>

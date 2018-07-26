@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 // Vendor
 import { withStyles } from '@material-ui/core/styles';
+import { injectGlobal } from 'styled-components';
 import Typography from '@material-ui/core/Typography';
 
 
@@ -10,12 +11,19 @@ import Typography from '@material-ui/core/Typography';
 
 import Paper from '@material-ui/core/Paper';
 
-
+import ArchiveTilt from '../../assets/archive-tilt.otf';
+injectGlobal`
+  @font-face {
+    font-family: 'archive';
+    src: url(${ArchiveTilt}) format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+`;
 
 const styles = theme => ({
-  paper: {
-    width: "100%",
-    // padding: theme.spacing.unit * 2,
+  title: {
+    fontFamily: "archive",
   },
   padded: {
     padding: theme.spacing.unit * 2,
@@ -34,9 +42,7 @@ const MenuProps = {
     },
 };
 
-
-
-function BasicComponent(props) {
+function Basic(props) {
 
   const { classes } = props;
   
@@ -54,14 +60,41 @@ function BasicComponent(props) {
   )
 };
 
+function TopLeft(props){
+  
+  const { classes } = props;
+  return (
+    <Paper className={classes.paper}>
+      <div className={classes.padded}>
+        <Typography 
+          className={classes.title}
+          variant="display1" 
+          gutterBottom>
+            Liberty Rocks
+        </Typography>
+      </div>
+    </Paper>
+  )
 
-BasicComponent.propTypes = {
+}
+
+
+Basic.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(BasicComponent);
+TopLeft.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
 
+const BasicComponent = withStyles(styles)(Basic);
+const TopLeftComponent = withStyles(styles)(TopLeft);
+
+export {
+  BasicComponent,
+  TopLeftComponent
+};
 
 
 

@@ -14,19 +14,18 @@ import BasePage from 'components/pages/base-page';
 // import "components/styles/styles.scss"
 import { awsUser } from 'utils/aws-user';
 
+import BackGround from "./assets/funky-lines.png"
+
 const styles = theme => ({
     root: {
         height: "100%",
-        width: "100%",
-
+        background: `url(${BackGround})`,
+        backgroundRepeat: "repeat",
         // padding: theme.spacing.unit,
       },
-    river: {
-        marginTop: "75px",
-        height: "100%",
-    },
     body: {
         marginTop: "75px",
+        height: "100%",
         [theme.breakpoints.down('sm')]: {
           width: "100%",
         },
@@ -59,11 +58,12 @@ class Application extends Component {
 
     render(){
         const { classes } = this.props;
+
         // window.localStorage.clear();
         // let loggedIn = awsUser.GetSession();
         return(            
             <div className={classes.root}>
-                <NavBar />
+                {/* <NavBar /> */}
                 <Grid container justify={"center"}>
                     <Grid container spacing={8} className={classes.body}> 
                         {this.state.authorized
