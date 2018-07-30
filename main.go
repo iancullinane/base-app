@@ -1,38 +1,40 @@
 package main
 
 import (
-	"database/sql"
-	"fmt"
 
 	// "fmt"
 	"log"
-	"os"
 
-	"github.com/iancullinane/pesto-app/pesto_db"
-	"github.com/iancullinane/pesto-app/server"
+	"github.com/iancullinane/base-app/lastfm"
+	"github.com/iancullinane/base-app/server"
 )
 
 func main() {
 
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
-	os.Remove("./pesto_db/files/pesto.db")
-	db, err := sql.Open("sqlite3", "./pesto_db/files/pesto.db")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer db.Close()
-
-	pdb := pesto_db.New(db)
-
-	err = pdb.CreateAllTables()
-	if err != nil {
-		fmt.Printf("Error creating database: %s\n", err)
-	}
-	pdb.InsertProducts()
-	pdb.InsertOrders()
+	tracks := lastfm.New(lastfm.NewHttpClient("ianpants", "57ee3318536b23ee81d6b27e36997cde"))
 	// pdb.Test()
 
-	server := server.SetUpServer(pdb)
+	server := server.SetUpServer(tracks)
+
 	server.ListenAndServe()
 }
+
+// func setupPestoDb() {
+// 	os.Remove("./pesto_db/files/pesto.db")
+// 	db, err := sql.Open("sqlite3", "./pesto_db/files/pesto.db")
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+// 	defer db.Close()
+
+// 	pdb := pesto_db.New(db)
+
+// 	err = pdb.CreateAllTables()
+// 	if err != nil {
+// 		fmt.Printf("Error creating database: %s\n", err)
+// 	}
+// 	pdb.InsertProducts()
+// 	pdb.InsertOrders()
+// }
