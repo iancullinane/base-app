@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 // Src
-import { BasicComponent, TopLeftComponent } from '../ui/component';
+import { BasicComponent, TopLeftComponent, PlaylistLinkComponent } from '../ui/component';
 
 const styles = theme => ({
   body: {
@@ -38,7 +38,7 @@ class BasePage extends React.Component {
             <Grid container spacing={8}>
               <Grid item xs={4}>
                   <TopLeftComponent />
-                  <BasicComponent />
+                  <PlaylistLinkComponent />
               </Grid>
               <Grid item xs={8}>
                   <BasicComponent />
