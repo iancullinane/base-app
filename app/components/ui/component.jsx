@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { injectGlobal } from 'styled-components';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 
 // Src
@@ -24,10 +25,13 @@ injectGlobal`
 const styles = theme => ({
   title: {
     fontFamily: "archive",
+    fontSize: "85px",
+    wordWrap: "break-word"
   },
   padded: {
     padding: theme.spacing.unit * 2,
-  }
+    marginBottom: "14px",
+  },
 });
 
 
@@ -47,7 +51,7 @@ function Basic(props) {
   const { classes } = props;
   
   return (
-    <Paper className={classes.paper}>
+    <Paper>
       <div className={classes.padded}>
         <Typography 
           className={classes.formTitle}
@@ -64,19 +68,37 @@ function TopLeft(props){
   
   const { classes } = props;
   return (
-    <Paper className={classes.paper}>
+    <Paper>
       <div className={classes.padded}>
         <Typography 
           className={classes.title}
           variant="display1" 
           gutterBottom>
-            Liberty Rocks
+            LibertyRocks
         </Typography>
       </div>
     </Paper>
   )
-
 }
+
+function PlaylistLink(props){
+  
+  const { classes } = props;
+  return (
+    <Paper>
+      <div className={classes.padded}>
+        <Button 
+          fullWidth
+          variant="outlined" href={"https://open.spotify.com/user/sarahstretch/playlist/3JOVIF6Fd2pX1hLJyjko4b?si=T05oNRP7QLSZO2T1zQy2aQ"} 
+          className={classes.button}
+        >
+          Playlist Link
+        </Button>
+      </div>
+    </Paper>
+  )
+}
+
 
 
 Basic.propTypes = {
@@ -87,13 +109,19 @@ TopLeft.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
+PlaylistLink.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
 
 const BasicComponent = withStyles(styles)(Basic);
 const TopLeftComponent = withStyles(styles)(TopLeft);
+const PlaylistLinkComponent = withStyles(styles)(PlaylistLink);
 
 export {
   BasicComponent,
-  TopLeftComponent
+  TopLeftComponent,
+  PlaylistLinkComponent
 };
 
 
