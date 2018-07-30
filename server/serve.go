@@ -11,13 +11,17 @@ import (
 	"github.com/gorilla/mux"
 )
 
-type PestoDb interface {
-	GetVendors(w http.ResponseWriter, r *http.Request)
-	GetProducts(w http.ResponseWriter, r *http.Request)
-	OrderHandler(w http.ResponseWriter, r *http.Request)
+type Tracks interface {
+	GetTracks(w http.ResponseWriter, r *http.Request)
 }
 
-func SetUpServer(pesto_db PestoDb) *http.Server {
+// type PestoDb interface {
+// 	GetVendors(w http.ResponseWriter, r *http.Request)
+// 	GetProducts(w http.ResponseWriter, r *http.Request)
+// 	OrderHandler(w http.ResponseWriter, r *http.Request)
+// }
+
+func SetUpServer(tracks Tracks) *http.Server {
 	var entry string
 	var static string
 	var port string
@@ -36,11 +40,7 @@ func SetUpServer(pesto_db PestoDb) *http.Server {
 	api := mux.PathPrefix("/api/v1/").Subrouter()
 	// api.Methods("OPTIONS").Handler(AccountsCreatePreFlight)
 
-	api.HandleFunc("/products", pesto_db.GetProducts).Methods("GET")
-	api.HandleFunc("/vendors", pesto_db.GetVendors).Methods("GET")
-	api.HandleFunc("/orders", pesto_db.OrderHandler).Methods("GET", "PUT", "OPTIONS")
-	// Optional: Use a custom 404 handler for our API paths.
-	// api.NotFoundHandler = JSONNotFound
+	api.HandleFunc("/tracks", tracks.GetTracks).Methods("GET")
 
 	// Serve static assets directly.
 	mux.PathPrefix("/dist/").Handler(http.FileServer(http.Dir(static)))
