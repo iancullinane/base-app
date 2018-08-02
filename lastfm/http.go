@@ -23,30 +23,88 @@ type HTTPClient struct {
 	apiKey   string
 }
 
-type Response struct {
-	RecentTracks Tracks `json:"recenttracks"`
-	ErrorCode    int    `json:"errorCode"`
-}
-
-type Tracks struct {
-	List []Track `json:"track"`
-}
-
-type Track struct {
-	Name   string       `json:"name"`
-	Artist ArtistObject `json:"artist"`
-}
-
-type ArtistObject struct {
-	Text string `json:"#text"`
-}
-
 func NewHttpClient(username, apiKey string) *HTTPClient {
 
 	return &HTTPClient{
 		username: username,
 		apiKey:   apiKey,
 	}
+}
+
+func (c *HTTPClient) Do(query string) (*Response, error) {
+
+	// fmt.Printf("Make request for: %s", requestString)
+	req, err := http.NewRequest("GET", query, nil)
+	if err != nil {
+		return nil, fmt.Errorf("could not create request object: %v", err)
+	}
+
+	hc := &http.Client{}
+	res, err := hc.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer func() {
+		io.Copy(ioutil.Discard, res.Body)
+		res.Body.Close()
+	}()
+
+	if err := parseHTTPError(res); err != nil {
+		return nil, err
+	}
+
+	response, err := formatLastFm(res.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+func (c *HTTPClient) GetTracks() (*Response, error) {
+
+	requestString := c.MakeQuery()
+
+	res, err := c.Do(requestString)
+	if err != nil {
+		return nil, err
+	}
+
+	return res, nil
+}
+
+// func formatLastFm(res *http.Response) (*Response, error) {
+func formatLastFm(rawData io.ReadCloser) (*Response, error) {
+
+	var lastFmRet LastFmData
+	dec := json.NewDecoder(rawData)
+	if err := dec.Decode(&lastFmRet); err != nil {
+		return nil, errors.Wrap(err, "error decoding response")
+	}
+
+	// b, err := json.MarshalIndent(lastFmRet, "", "  ")
+	// if err != nil {
+	// 	fmt.Println("error:", err)
+	// }
+	// fmt.Print(string(b))
+
+	var formattedTracks []CustomTrack
+
+	for _, v := range lastFmRet.List {
+		tmp := CustomTrack{
+			Name:   v.Name,
+			Artist: v.ArtistObject.Text,
+			Image:  v.Images,
+		}
+		formattedTracks = append(formattedTracks, tmp)
+		// formattfmt.Printf("This is %d: %s\n", i, v.Name)
+	}
+
+	ret := Response{
+		Tracks: formattedTracks,
+	}
+
+	return &ret, nil
 }
 
 func parseHTTPError(res *http.Response) error {
@@ -64,49 +122,6 @@ func parseHTTPError(res *http.Response) error {
 	}
 
 	return fmt.Errorf("error performing request: %s", buf.String())
-}
-
-func (c *HTTPClient) Do() (*Response, error) {
-
-	requestString := c.MakeQuery()
-
-	fmt.Println(requestString)
-	// fmt.Printf("Make request for: %s", requestString)
-	req, err := http.NewRequest("GET", requestString, nil)
-	if err != nil {
-		return nil, fmt.Errorf("could not create request object: %v", err)
-	}
-
-	hc := &http.Client{}
-	res, err := hc.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer func() {
-		io.Copy(ioutil.Discard, res.Body)
-		res.Body.Close()
-	}()
-
-	response, err := unmarshalResponse(res)
-	if err != nil {
-		return nil, err
-	}
-
-	return response, nil
-}
-
-func unmarshalResponse(res *http.Response) (*Response, error) {
-	if err := parseHTTPError(res); err != nil {
-		return nil, err
-	}
-
-	var ret Response
-	dec := json.NewDecoder(res.Body)
-	if err := dec.Decode(&ret); err != nil {
-		return nil, errors.Wrap(err, "error decoding response")
-	}
-
-	return &ret, nil
 }
 
 func (c *HTTPClient) MakeQuery() string {

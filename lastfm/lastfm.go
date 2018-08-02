@@ -27,19 +27,19 @@ func (lf *LastFm) PrintEnvironment() {
 
 func (lf *LastFm) GetTracks(w http.ResponseWriter, r *http.Request) {
 
-	res, err := lf.http.Do()
+	res, err := lf.http.GetTracks()
 	if err != nil {
 		http.Error(w, err.Error(), 400)
 		return
 	}
+
+	// res = formatResponse(res)
 
 	ret, err := json.Marshal(res)
 	if err != nil {
 		http.Error(w, err.Error(), 400)
 		return
 	}
-
-	fmt.Println("Everything is fine?")
 
 	w.Write(ret)
 }
