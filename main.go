@@ -5,8 +5,8 @@ import (
 	// "fmt"
 	"log"
 
-	"github.com/iancullinane/base-app/lastfm"
-	"github.com/iancullinane/base-app/server"
+	"github.com/iancullinane/new-sb-app/lastfm"
+	"github.com/iancullinane/new-sb-app/server"
 )
 
 func main() {

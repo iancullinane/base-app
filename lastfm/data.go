@@ -10,20 +10,20 @@ type Response struct {
 	ErrorCode int           `json:"errorCode"`
 }
 
-type CustomTrack struct {
-	Name   string  `json:"name"`
-	Artist string  `json:"artist_name"`
-	Image  []Image `json:"image"`
-}
-
 type Tracks struct {
 	List []Track `json:"track"`
 }
 
 type Track struct {
-	Name         string  `json:"name"`
+	Name         string `json:"name"`
+	Date         `json:"date"`
 	Images       []Image `json:"image"`
 	ArtistObject `json:"artist"`
+	Attributes   `json:"@attr,omitempty"`
+}
+
+type Attributes struct {
+	NowPlaying string `json:"nowplaying,omitempty"`
 }
 
 type Image struct {
@@ -31,6 +31,18 @@ type Image struct {
 	Size string `json:"size"`
 }
 
+type Date struct {
+	UTS string `json:"uts"`
+}
+
 type ArtistObject struct {
 	Text string `json:"#text"`
+}
+
+type CustomTrack struct {
+	Name       string  `json:"name"`
+	Artist     string  `json:"artist_name"`
+	Image      []Image `json:"image"`
+	TimePlayed string  `json:"date"`
+	NowPlaying string  `json:"now_playing,omitempty"`
 }

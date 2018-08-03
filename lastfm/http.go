@@ -31,7 +31,7 @@ func NewHttpClient(username, apiKey string) *HTTPClient {
 	}
 }
 
-func (c *HTTPClient) Do(query string) (*Response, error) {
+func (c *HTTPClient) Do(query string) (io.ReadCloser, error) {
 
 	// fmt.Printf("Make request for: %s", requestString)
 	req, err := http.NewRequest("GET", query, nil)
@@ -44,33 +44,37 @@ func (c *HTTPClient) Do(query string) (*Response, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer func() {
-		io.Copy(ioutil.Discard, res.Body)
-		res.Body.Close()
-	}()
 
 	if err := parseHTTPError(res); err != nil {
 		return nil, err
 	}
 
-	response, err := formatLastFm(res.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	return response, nil
+	return res.Body, nil
 }
 
 func (c *HTTPClient) GetTracks() (*Response, error) {
 
+	// Generate a query
 	requestString := c.MakeQuery()
 
+	// Get data from lastFM
 	res, err := c.Do(requestString)
 	if err != nil {
 		return nil, err
 	}
 
-	return res, nil
+	defer func() {
+		io.Copy(ioutil.Discard, res)
+		res.Close()
+	}()
+
+	// Make it easier to process
+	formattedResponse, err := formatLastFm(res)
+	if err != nil {
+		return nil, err
+	}
+
+	return formattedResponse, nil
 }
 
 // func formatLastFm(res *http.Response) (*Response, error) {
@@ -82,22 +86,15 @@ func formatLastFm(rawData io.ReadCloser) (*Response, error) {
 		return nil, errors.Wrap(err, "error decoding response")
 	}
 
-	// b, err := json.MarshalIndent(lastFmRet, "", "  ")
-	// if err != nil {
-	// 	fmt.Println("error:", err)
-	// }
-	// fmt.Print(string(b))
-
 	var formattedTracks []CustomTrack
-
 	for _, v := range lastFmRet.List {
-		tmp := CustomTrack{
-			Name:   v.Name,
-			Artist: v.ArtistObject.Text,
-			Image:  v.Images,
-		}
-		formattedTracks = append(formattedTracks, tmp)
-		// formattfmt.Printf("This is %d: %s\n", i, v.Name)
+		formattedTracks = append(formattedTracks, CustomTrack{
+			Name:       v.Name,
+			Artist:     v.ArtistObject.Text,
+			Image:      v.Images,
+			TimePlayed: v.Date.UTS,
+			NowPlaying: v.Attributes.NowPlaying,
+		})
 	}
 
 	ret := Response{
