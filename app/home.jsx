@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 // source
 import NavBar from 'components/navbar';
 import LoginPage from 'components/pages/auth-page';
-import BasePage from 'components/pages/base-page';
+import NowPlaying from 'components/pages/now-playing';
 
 
 // import "components/styles/styles.scss"
@@ -67,7 +67,7 @@ class Application extends Component {
                 <Grid container justify={"center"}>
                     <Grid container spacing={8} className={classes.body}> 
                         {this.state.authorized
-                            ? <BasePage />
+                            ? <NowPlaying />
                             : <LoginPage /> 
                         }
                     </Grid>

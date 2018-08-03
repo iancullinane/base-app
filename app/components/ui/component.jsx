@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Vendor
+import _ from 'underscore';
 import { withStyles } from '@material-ui/core/styles';
 import { injectGlobal } from 'styled-components';
 import Typography from '@material-ui/core/Typography';
@@ -101,6 +102,29 @@ function PlaylistLink(props){
 
 
 
+function Track(props){
+  
+  const { classes } = props;
+
+  let tracksList = _.map(props.tracks, (obj, i) =>
+    <Paper key={i}>
+      <div className={classes.padded}>
+        <Typography 
+          variant="display1" 
+          gutterBottom>
+            {obj.name}
+        </Typography>
+      </div>
+    </Paper>
+  )
+
+  return (
+    tracksList
+  )
+}
+
+
+
 Basic.propTypes = {
   classes: PropTypes.object.isRequired,
 };
@@ -113,15 +137,20 @@ PlaylistLink.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
+Track.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
 const BasicComponent = withStyles(styles)(Basic);
 const TopLeftComponent = withStyles(styles)(TopLeft);
 const PlaylistLinkComponent = withStyles(styles)(PlaylistLink);
+const TrackComponent = withStyles(styles)(Track);
 
 export {
   BasicComponent,
   TopLeftComponent,
-  PlaylistLinkComponent
+  PlaylistLinkComponent,
+  TrackComponent
 };
 
 
