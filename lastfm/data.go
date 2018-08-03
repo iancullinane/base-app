@@ -6,7 +6,7 @@ type LastFmData struct {
 }
 
 type Response struct {
-	Tracks    []CustomTrack `json:"test"`
+	Tracks    []CustomTrack `json:"tracks"`
 	ErrorCode int           `json:"errorCode"`
 }
 
@@ -43,6 +43,6 @@ type CustomTrack struct {
 	Name       string  `json:"name"`
 	Artist     string  `json:"artist_name"`
 	Image      []Image `json:"image"`
-	TimePlayed string  `json:"date"`
+	TimePlayed string  `json:"date,omitempty"`
 	NowPlaying string  `json:"now_playing,omitempty"`
 }
