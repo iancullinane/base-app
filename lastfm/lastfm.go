@@ -27,6 +27,8 @@ func (lf *LastFm) PrintEnvironment() {
 
 func (lf *LastFm) GetTracks(w http.ResponseWriter, r *http.Request) {
 
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	res, err := lf.http.GetTracks()
 	if err != nil {
 		http.Error(w, err.Error(), 400)

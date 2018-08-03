@@ -63,12 +63,13 @@ func (c *HTTPClient) GetTracks() (*Response, error) {
 		return nil, err
 	}
 
+	// Close the body later
 	defer func() {
 		io.Copy(ioutil.Discard, res)
 		res.Close()
 	}()
 
-	// Make it easier to process
+	// Clean up for app consumption
 	formattedResponse, err := formatLastFm(res)
 	if err != nil {
 		return nil, err
@@ -129,7 +130,7 @@ func (c *HTTPClient) MakeQuery() string {
 
 	q := u.Query()
 	q.Set("method", "user.getRecentTracks")
-	q.Set("limit", string(10))
+	q.Set("limit", "10")
 	q.Set("user", c.username)
 	q.Set("api_key", c.apiKey)
 	q.Set("format", "json")
