@@ -28,7 +28,7 @@ func SetUpServer(tracks Tracks) *http.Server {
 
 	flag.StringVar(&entry, "entry", "./dist/index.html", "the entrypoint to serve.")
 	flag.StringVar(&static, "dist", ".", "the directory to serve static files from.")
-	flag.StringVar(&port, "port", "5003", "the `port` to listen on.")
+	flag.StringVar(&port, "port", "5500", "the `port` to listen on.")
 	flag.Parse()
 
 	mux := mux.NewRouter()

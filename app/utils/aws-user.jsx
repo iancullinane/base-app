@@ -6,18 +6,30 @@ import { CognitoUser, CognitoIdentity, CognitoUserPool, CognitoUserAttribute, Au
 // https://github.com/aws/aws-amplify/tree/master/packages/amazon-cognito-identity-js
 
 var poolData = {
-    UserPoolId : 'us-east-2_kC2dLaLWV', // Your user pool id here
-    ClientId : '7e4mmmj8pd57dq24hv138asn3c' // Your client id here
+    UserPoolId : 'us-east-2_21G4OwuuZ', // Your user pool id here
+    ClientId : '14ib28jhn1jst0vr55gpfr6vkh' // Your client id here
 };
 
 class AwsUser {
     constructor(){
         this.userPool = new CognitoUserPool(poolData);
+        this.state = {
+            test: "Test",
+        }
+    }
+
+    SignOut(){
+        console.log("Hello");
+        console.log(this.userPool);
+    }
+
+    getCurrentUser(){
+        return this.userPool.getCurrentUser();
     }
 
     GetSession(){
+        
         var cognitoUser = this.userPool.getCurrentUser();
-
 
         return new Promise((resolve, reject)=>{
             if (cognitoUser != null) {
@@ -56,10 +68,6 @@ class AwsUser {
             Password : password,
         };
         var authenticationDetails = new AuthenticationDetails(authenticationData);
-        var poolData = {
-            UserPoolId : 'us-east-2_kC2dLaLWV', // Your user pool id here
-            ClientId : '7e4mmmj8pd57dq24hv138asn3c' // Your client id here
-        };
 
         var userData = {
             Username : username,
@@ -70,8 +78,9 @@ class AwsUser {
         return new Promise((resolve, reject)=>{
             cognitoUser.authenticateUser(authenticationDetails, {
                 onSuccess: function (result) {
-                    console.log('access token + ' + result.getAccessToken().getJwtToken());
-                    location.reload();
+                    // console.log('access token + ' + result.getAccessToken().getJwtToken());
+                    // location.reload();
+                    resolve(result)
                 },
         
                 onFailure: function(err) {
@@ -97,41 +106,37 @@ class AwsUser {
 
     }
 
+    SignOut(){
+        var cognitoUser = this.userPool.getCurrentUser();
+        if (cognitoUser != null) {
+            cognitoUser.signOut();
+        }
+    }
 
-
-    
-    SignUpUser(email, password, address, vendor_name){
+    SignUpUser(username, email, password){
         // var userPool = new CognitoUserPool(poolData);
 
         var attributeList = [];
         
+        var dataUsername = {
+            Name: 'username',
+            Value: username
+        };
+
         var dataEmail = {
             Name : 'email',
             Value : email
         };
-    
-        var dataAddress = {
-            Name : 'address',
-            Value : address
-        };
-    
-        var dataVendorName = {
-            Name : `custom:vendor_name`,
-            Value : vendor_name
-        };
-    
-        var attributeEmail = new CognitoUserAttribute(dataEmail);
-        var attributeAddress = new CognitoUserAttribute(dataAddress);
-        var attributeVendorName = new CognitoUserAttribute(dataVendorName);
-    
+
+
         
+        var attributeEmail = new CognitoUserAttribute(dataEmail);
+    
         attributeList.push(attributeEmail);
-        attributeList.push(attributeAddress);
-        attributeList.push(attributeVendorName);
     
 
         return new Promise((resolve, reject)=>{
-            this.userPool.signUp(dataEmail.Value, password, attributeList, null, (err, result)=>{
+            this.userPool.signUp(username, password, attributeList, null, (err, result)=>{
                 if(err){
                     console.log(err);
                     reject(err);

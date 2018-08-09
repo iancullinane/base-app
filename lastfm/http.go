@@ -57,6 +57,7 @@ func (c *HTTPClient) GetTracks() (*Response, error) {
 	// Generate a query
 	requestString := c.MakeQuery()
 
+	fmt.Println(requestString)
 	// Get data from lastFM
 	res, err := c.Do(requestString)
 	if err != nil {
@@ -133,6 +134,7 @@ func (c *HTTPClient) MakeQuery() string {
 	q.Set("limit", "10")
 	q.Set("user", c.username)
 	q.Set("api_key", c.apiKey)
+	q.Set("page", "1")
 	q.Set("format", "json")
 	u.RawQuery = q.Encode()
 

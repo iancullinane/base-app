@@ -8,8 +8,8 @@ module.exports = {
   devtool: 'source-map',
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'public'),
-    publicPath: 'public'
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: 'dist/'
   },
   watch: true,
   devServer: {
@@ -18,7 +18,7 @@ module.exports = {
       "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
       "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
     },
-    contentBase: './public/',
+    contentBase: './dist/',
     hot: true
   },
   resolve: {
@@ -30,6 +30,12 @@ module.exports = {
   },
   module:{
     loaders:[      
+      {
+        test:/\.css$/,
+        // the are used in reverse order, output of sass-loader->css-loader->
+        // stlye->loader injects it into the html
+        use:['style-loader','css-loader', 'sass-loader']
+      },
       {
         test: /\.(png|svg|jpg|gif|otf)$/,
         use: [
@@ -54,9 +60,9 @@ module.exports = {
       }]
   },
   plugins: [
-    new CleanWebpackPlugin(['dist'], {exclude: ['index.html','main.bundle.js','main.bundle.js.map']}),
+    // new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      title: 'Pesto',
+      title: 'Liberty Radio',
       template: './app/styles/index-template.html',
       inject: true,
     }),

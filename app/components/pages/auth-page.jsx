@@ -34,14 +34,12 @@ class LoginPage extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+      username: '',
       email: '',
       login_email: '',
       password: '',
       login_password: '',
       password_confirm: '',
-      vendor_name: '',
-      address: '',
-      phone_number: '',
       login_error: null,
       signup_error: null,
       waitForConfirmation: false,
@@ -51,11 +49,10 @@ class LoginPage extends React.Component {
   }
 
   async authenticateUser(){
-    
-    console.log(this.state.login_email, this.state.login_password);
+  
     const result = await awsUser.AuthenticateUser(this.state.login_email, this.state.login_password)
       .then((result)=>{
-        console.log(result);
+        this.props.toggleAuthed();
       }).catch((err)=>{ 
         this.setState({login_error: err});
       }
@@ -66,10 +63,9 @@ class LoginPage extends React.Component {
     if(this.state.password === this.state.password_confirm){
       
       const result = await awsUser.SignUpUser(
+        this.state.username,
         this.state.email, 
-        this.state.password,
-        this.state.address,
-        this.state.vendor_name,
+        this.state.password
       ).then((result)=>{
         
         this.setState(
@@ -88,6 +84,8 @@ class LoginPage extends React.Component {
       this.setState({signup_error: "Passwords don't match"});
     }
   }
+
+
   
   async confirmUser(){
     const result = await awsUser.ConfirmUser(
@@ -114,17 +112,7 @@ class LoginPage extends React.Component {
 
     return (
       <div>
-        {this.state.waitForConfirmation 
-          ? <Grid container alignContent={"center"} justify={"center"} className={classes.root} spacing={16}>
-              <Grid item xs={5}>
-                <EnterCode 
-                  registerFunction={this.confirmUser.bind(this)} 
-                  handleChange={this.handleChange.bind(this)}
-                />
-              </Grid>
-            </Grid>
-
-          : <Grid container alignContent={"center"} justify={"center"} className={classes.root} spacing={16}>
+          <Grid container alignContent={"center"} justify={"center"} className={classes.root} spacing={16}>
               <Grid item xs={5}>
                 <Login
                   {...this.state}
@@ -140,7 +128,7 @@ class LoginPage extends React.Component {
               </Grid>
             </Grid>
             
-        }
+        
       </div>
     );
   }

@@ -29,6 +29,10 @@ func (lf *LastFm) GetTracks(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
+	fmt.Println(r.URL.String())
+	page := r.URL.Query().Get("page")
+	fmt.Println(page)
+
 	res, err := lf.http.GetTracks()
 	if err != nil {
 		http.Error(w, err.Error(), 400)

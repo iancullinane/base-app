@@ -4,20 +4,20 @@ import PropTypes from 'prop-types';
 // Vendor
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
 // Src
 import { 
-  BasicComponent, 
   TopLeftComponent, 
   PlaylistLinkComponent,
-  TrackComponent } from '../ui/component';
+  CalloutComponent,
+  TrackListComponent } from '../ui/component';
 import { getTracks } from '../data/tracks';
 
 const styles = theme => ({
   body: {
     flexGrow: 1,
   }
-
 });
 
 class NowPlaying extends React.Component {
@@ -25,23 +25,26 @@ class NowPlaying extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+      page: 1,
       tracks: null,
     }
   }
 
 
   async componentDidMount() {
-    const tracks = await getTracks()
+    const tracks = await getTracks(this.state.page)
 
     this.setState({tracks: tracks.tracks})
   }
 
+  // async getMoreTracks(){
+
+  // }
+
   // Controlled component handler for all fields
   handleChange = prop => event => {
-    if(prop == "selected_product"){
-      console.log("Updating selected products");
-    }
-    this.setState({ [prop]: event.target.value });
+    console.log(`${event.target.value} button clicked`)
+    // this.setState({ [prop]: event.target.value });
   };
 
   render(){
@@ -50,17 +53,26 @@ class NowPlaying extends React.Component {
     return (
         <div className={classes.body}>
             <Grid container spacing={8}>
-              <Grid item xs={4}>
+              <Grid item sm={12} md={12} lg={4}>
                   <TopLeftComponent />
+                  <CalloutComponent />
                   <PlaylistLinkComponent />
               </Grid>
-              <Grid item xs={8}>
+              <Grid item sm={12} md={12} lg={8}>
                   {this.state.tracks 
-                    ? <TrackComponent tracks={this.state.tracks} />
+                    ? <TrackListComponent tracks={this.state.tracks} />
                     : null
                   }
               </Grid>
             </Grid>
+            <Button 
+              fullWidth
+              variant="outlined"
+              onClick={this.handleChange('more_tracks')}
+              className={classes.hide}
+            >
+              More Tracks (coming soon)
+            </Button>
         </div>
     );
   }

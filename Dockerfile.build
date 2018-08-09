@@ -7,12 +7,13 @@ RUN mkdir -p /go/src /go/pkg /go/bin && chmod -R 777 /go
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:$PATH
 
-ADD Makefile /go/src/github.com/iancullinane/pesto-app/Makefile
-ADD main.go /go/src/github.com/iancullinane/pesto-app/main.go
-ADD server/ /go/src/github.com/iancullinane/pesto-app/server/
-ADD pesto_db/ /go/src/github.com/iancullinane/pesto-app/pesto_db/
+ADD Makefile /go/src/github.com/iancullinane/new-sb-app/Makefile
+ADD main.go /go/src/github.com/iancullinane/new-sb-app/main.go
+ADD server/ /go/src/github.com/iancullinane/new-sb-app/server/
+ADD lastfm/ /go/src/github.com/iancullinane/new-sb-app/lastfm/
 
-WORKDIR /go/src/github.com/iancullinane/pesto-app
+
+WORKDIR /go/src/github.com/iancullinane/new-sb-app
 
 # CMD ["ls", "-la"]
 RUN go get ./...
