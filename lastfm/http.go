@@ -52,10 +52,10 @@ func (c *HTTPClient) Do(query string) (io.ReadCloser, error) {
 	return res.Body, nil
 }
 
-func (c *HTTPClient) GetTracks() (*Response, error) {
+func (c *HTTPClient) GetTracks(page string) (*Response, error) {
 
 	// Generate a query
-	requestString := c.MakeQuery()
+	requestString := c.MakeQuery(page)
 
 	fmt.Println(requestString)
 	// Get data from lastFM
@@ -123,7 +123,7 @@ func parseHTTPError(res *http.Response) error {
 	return fmt.Errorf("error performing request: %s", buf.String())
 }
 
-func (c *HTTPClient) MakeQuery() string {
+func (c *HTTPClient) MakeQuery(page string) string {
 	u, err := url.Parse(lastFmUrl)
 	if err != nil {
 		log.Fatal(err)
@@ -134,7 +134,7 @@ func (c *HTTPClient) MakeQuery() string {
 	q.Set("limit", "10")
 	q.Set("user", c.username)
 	q.Set("api_key", c.apiKey)
-	q.Set("page", "1")
+	q.Set("page", page)
 	q.Set("format", "json")
 	u.RawQuery = q.Encode()
 
