@@ -1,0 +1,11 @@
+
+@import url('https://fonts.googleapis.com/css?family=Emblema+One|Roboto+Slab');
+
+
+body {
+    margin: 0;
+    padding: 20px;
+    position: relative;
+    background:linear-gradient(0deg,rgba(192, 212, 13, 0.3),rgba(255,0,150,0.3)),url('../assets/funky-lines.png');
+    background-attachment: fixed;
+}
