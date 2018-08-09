@@ -7,31 +7,57 @@ import { withStyles } from '@material-ui/core/styles';
 import { injectGlobal } from 'styled-components';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-
-
-// Src
-
 import Paper from '@material-ui/core/Paper';
 
-import ArchiveTilt from '../../assets/archive-tilt.otf';
-injectGlobal`
-  @font-face {
-    font-family: 'archive';
-    src: url(${ArchiveTilt}) format('opentype');
-    font-weight: normal;
-    font-style: normal;
-  }
-`;
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+
+// Src
+import Track from './track';
+
+import BackGround from "../../assets/funky-lines.png"
+import '../../styles/fonts.css';
+
+
+
+function ImageTest(props){
+  const { classes } = props;
+
+  return(
+    <Card>
+      <CardContent>
+        <img src={`${BackGround}`}></img>
+      </CardContent>
+    </Card>
+  )
+}
 
 const styles = theme => ({
   title: {
-    fontFamily: "archive",
-    fontSize: "85px",
-    wordWrap: "break-word"
+    fontFamily: "Emblema One",
+    color: "black",
+    lineHeight: .9,
+    margin: 0,
+    padding: 0,
+    [theme.breakpoints.up('lg')]: {
+      fontSize: "2vw",
+    },
+    [theme.breakpoints.down('md')]: {
+      fontSize: "9vw",
+    },
+    // wordWrap: "break-line"
   },
   padded: {
     padding: theme.spacing.unit * 2,
     marginBottom: "14px",
+    fontFamily: "Roboto Slab",
+  },
+  hide:{
+    padding: theme.spacing.unit * 2,
+    marginBottom: 10,
+  },
+  button: {
+    fontFamily: "Roboto Slab"
   },
 });
 
@@ -56,9 +82,15 @@ function Basic(props) {
       <div className={classes.padded}>
         <Typography 
           className={classes.formTitle}
-          variant="display1" 
+          variant="headline" 
           gutterBottom>
-            Test
+            Some kind of message!
+        </Typography>
+        <Typography 
+          className={classes.formTitle}
+          variant="caption" 
+          gutterBottom>
+            Bootylicious, Facewreck, Additional Generic Weed Variety
         </Typography>
       </div>
     </Paper>
@@ -69,13 +101,13 @@ function TopLeft(props){
   
   const { classes } = props;
   return (
-    <Paper>
+    <Paper className={classes.topLeft}>
       <div className={classes.padded}>
         <Typography 
           className={classes.title}
           variant="display1" 
           gutterBottom>
-            LibertyRocks
+            Liberty Radio
         </Typography>
       </div>
     </Paper>
@@ -100,29 +132,91 @@ function PlaylistLink(props){
   )
 }
 
-
-
-function Track(props){
+function NowPlaying(props){
   
   const { classes } = props;
-
-  let tracksList = _.map(props.tracks, (obj, i) =>
-    <Paper key={i}>
+  return (
+    <Paper>
       <div className={classes.padded}>
-        <Typography 
-          variant="display1" 
-          gutterBottom>
-            {obj.name}
+        <Typography variant={"title"}>
+          Now Playing
         </Typography>
       </div>
     </Paper>
   )
+}
 
+function Callout(props){
+  
+  const { classes } = props;
   return (
-    tracksList
+    <Paper>
+      <div className={classes.padded}>
+        <Typography variant={"headline"}>
+          Now Playing @Liberty
+        </Typography>
+        <Typography 
+          variant={"caption"}
+          style={{marginBottom: 10}}
+        >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur accumsan orci vitae ornare varius. Proin placerat felis id eros scelerisque, eget tincidunt augue mattis. 
+        </Typography>
+        
+        {/* <Button 
+          fullWidth
+          variant="outlined" 
+          className={classes.hide}
+        >
+          Hide Panel
+        </Button> */}
+      </div>
+
+    </Paper>
   )
 }
 
+
+
+function TrackList(props){
+  
+  const { classes } = props;
+
+  let river = _.map(props.tracks, (obj, i) =>
+    <div key={i}>
+      {duh(i, obj)}
+    </div>
+  )
+
+  return (
+    river
+  )
+}
+
+function duh(i, obj){
+  let returnObj;
+  if(i % 5){
+    returnObj = <Track track={obj} />
+  } else {
+    returnObj = 
+      <div>
+        <BasicComponent />
+        <Track track={obj} />
+      </div>
+  }
+
+  return returnObj
+}
+
+
+// function track(track){
+//   return(
+//       <Typography 
+//         variant="display1" 
+//         gutterBottom>
+//           {track.name}
+//       </Typography>
+//   )
+// }
 
 
 Basic.propTypes = {
@@ -137,20 +231,27 @@ PlaylistLink.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-Track.propTypes = {
+TrackList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+
 
 const BasicComponent = withStyles(styles)(Basic);
 const TopLeftComponent = withStyles(styles)(TopLeft);
 const PlaylistLinkComponent = withStyles(styles)(PlaylistLink);
-const TrackComponent = withStyles(styles)(Track);
+const TrackListComponent = withStyles(styles)(TrackList);
+const CalloutComponent = withStyles(styles)(Callout);
+const NowPlayingComponent = withStyles(styles)(NowPlaying);
+const ImageTestComponent = withStyles(styles)(ImageTest);
 
 export {
   BasicComponent,
   TopLeftComponent,
   PlaylistLinkComponent,
-  TrackComponent
+  TrackListComponent,
+  CalloutComponent,
+  NowPlayingComponent,
+  ImageTestComponent
 };
 
 

@@ -1,9 +1,9 @@
 
 
-IMAGE ?= application
+IMAGE ?= liberty
 ENVIRONMENT ?= dev
 NAME ?= $(IMAGE)-$(ENVIRONMENT)
-PORT ?= 5006
+PORT ?= 5500
 
 #
 # The `all` target is just for producing an image from the meta project
@@ -25,13 +25,13 @@ run: go-build
 	./${NAME}
 
 docker-build: 
-	docker build -t build-container -f Dockerfile.build .
-	docker run -v ${CURDIR}/:/go/src/github.com/iancullinane/pesto-app build-container
+	docker build --no-cache -t build-container -f Dockerfile.build .
+	docker run -v ${CURDIR}/:/go/src/github.com/iancullinane/new-sb-app build-container
 	
 
 run-docker: docker-build
-	docker build -t $(IMAGE_NAME) .
-	docker run -p $(PORT):$(PORT) $(IMAGE_NAME) 
+	docker build --no-cache -t $(NAME) .
+	docker run -p $(PORT):$(PORT) $(NAME) 
 
 install: node_modules
 

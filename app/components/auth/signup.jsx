@@ -43,8 +43,8 @@ const styles = theme => ({
 });
 
 var poolData = {
-  UserPoolId : 'us-east-2_SqPWkjFhx', // Your user pool id here
-  ClientId : '5e86924ighs70itck1816rajbi' // Your client id here
+  UserPoolId : 'us-east-2_21G4OwuuZ', // Your user pool id here
+  ClientId : '14ib28jhn1jst0vr55gpfr6vkh' // Your client id here
 };
 
 // 
@@ -57,6 +57,16 @@ function Signup(props) {
         <Typography>
             Signup
         </Typography>
+        <Input
+          placeholder="Username"
+          className={classes.input}
+          type={"text"}
+          value={props.username}
+          onChange={props.onChange('username')}
+          inputProps={{
+            'aria-label': 'Description',
+          }}
+        />        
         <Input
           placeholder="Email"
           className={classes.input}
@@ -87,36 +97,6 @@ function Signup(props) {
             'aria-label': 'Description',
           }}
         />
-        <Input
-          placeholder="Name of Business"
-          className={classes.input}
-          type={"type"}
-          value={props.vendor_name}
-          onChange={props.onChange('vendor_name')}
-          inputProps={{
-            'aria-label': 'Description',
-          }}
-        />
-        <Input
-          placeholder="Address"
-          className={classes.input}
-          type={"type"}
-          value={props.address}
-          onChange={props.onChange('address')}
-          inputProps={{
-            'aria-label': 'Description',
-          }}
-        />
-        <Input
-          placeholder="Phone Number"
-          className={classes.input}
-          type={"type"}
-          value={props.phone_number}
-          onChange={props.onChange('phone_number')}
-          inputProps={{
-            'aria-label': 'Description',
-          }}
-        />        
         
         <Button 
           variant="raised" 

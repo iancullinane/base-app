@@ -6,22 +6,19 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 // source
-import NavBar from 'components/navbar';
 import LoginPage from 'components/pages/auth-page';
 import NowPlaying from 'components/pages/now-playing';
+import NavBar from 'components/navbar';
 
 
 // import "components/styles/styles.scss"
 import { awsUser } from 'utils/aws-user';
-
 import BackGround from "./assets/funky-lines.png"
+
 
 const styles = theme => ({
     root: {
         height: "100%",
-        background: `url(${BackGround})`,
-        backgroundRepeat: "repeat",
-        // padding: theme.spacing.unit,
       },
     body: {
         marginTop: "75px",
@@ -47,13 +44,22 @@ class Application extends Component {
         super(props);
         this.state = {
             session: null,
+            authorized: false
         }
         console.log("Launch pesto app");
     }
 
+
+    
     async componentDidMount() {
         const authorized = await awsUser.GetSession()
         this.setState({authorized})
+    }
+
+    toggleAuthed(){
+        this.setState(prevState => ({
+            authorized: !prevState.authorized
+          }));
     }
 
     render(){
@@ -63,12 +69,12 @@ class Application extends Component {
         // let loggedIn = awsUser.GetSession();
         return(            
             <div className={classes.root}>
-                {/* <NavBar /> */}
+                <NavBar />
                 <Grid container justify={"center"}>
                     <Grid container spacing={8} className={classes.body}> 
                         {this.state.authorized
                             ? <NowPlaying />
-                            : <LoginPage /> 
+                            : <LoginPage toggleAuthed={this.toggleAuthed.bind(this)} /> 
                         }
                     </Grid>
                 </Grid>
