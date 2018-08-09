@@ -37,9 +37,15 @@ class NowPlaying extends React.Component {
     this.setState({tracks: tracks.tracks})
   }
 
-  // async getMoreTracks(){
 
-  // }
+
+  async incrementPage(){
+
+    let moreTracks = await getTracks(this.state.page+1)
+    let copy = this.state.tracks.concat(moreTracks.tracks)
+
+    this.setState({page: this.state.page++, tracks: copy})
+  }
 
   // Controlled component handler for all fields
   handleChange = prop => event => {
@@ -68,7 +74,7 @@ class NowPlaying extends React.Component {
             <Button 
               fullWidth
               variant="outlined"
-              onClick={this.handleChange('more_tracks')}
+              onClick={()=>{this.incrementPage()}}
               className={classes.hide}
             >
               More Tracks (coming soon)
