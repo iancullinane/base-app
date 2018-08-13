@@ -11,7 +11,6 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     publicPath: 'dist/'
   },
-  watch: true,
   devServer: {
     headers: {
       "Access-Control-Allow-Origin": "*",

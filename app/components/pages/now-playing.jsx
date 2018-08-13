@@ -10,13 +10,29 @@ import Button from '@material-ui/core/Button';
 import { 
   TopLeftComponent, 
   PlaylistLinkComponent,
-  CalloutComponent,
   TrackListComponent } from '../ui/component';
+import { CalloutComponent } from '../ui/message';
+
 import { getTracks } from '../data/tracks';
+
+// Assets
 
 const styles = theme => ({
   body: {
     flexGrow: 1,
+  },
+  more_btn: {
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    color: "white",
+    fontFamily: "Roboto Slab",
+    marginBottom: 20,
+    [theme.breakpoints.down('xl')]: {
+      fontSize: "1.2vw",
+    },
+    [theme.breakpoints.down('md')]: {
+      fontSize: "2vw",
+    },
+    
   }
 });
 
@@ -59,12 +75,12 @@ class NowPlaying extends React.Component {
     return (
         <div className={classes.body}>
             <Grid container spacing={8}>
-              <Grid item sm={12} md={12} lg={4}>
+              <Grid item xs={12} sm={12} md={4} lg={4}>
                   <TopLeftComponent />
                   <CalloutComponent />
                   <PlaylistLinkComponent />
               </Grid>
-              <Grid item sm={12} md={12} lg={8}>
+              <Grid item xs={12} sm={12} md={8} lg={8}>
                   {this.state.tracks 
                     ? <TrackListComponent tracks={this.state.tracks} />
                     : null
@@ -73,11 +89,10 @@ class NowPlaying extends React.Component {
             </Grid>
             <Button 
               fullWidth
-              variant="outlined"
               onClick={()=>{this.incrementPage()}}
-              className={classes.hide}
+              className={classes.more_btn}
             >
-              More Tracks (coming soon)
+              More Tracks
             </Button>
         </div>
     );
@@ -92,7 +107,24 @@ export default withStyles(styles)(NowPlaying);
 
 
 
+{/* TODO: this suckssssssssssssssss */}
+{/* <Grid container spacing={8}>
 
+  <Grid item sm={12} md={6} lg={6}>
+    <TopLeftComponent />
+  </Grid>
+
+  <Grid item sm={12} md={6} lg={6}>
+    <CalloutComponent />
+
+  </Grid>
+
+  <Grid item sm={12} md={12} lg={12}>
+    <PlaylistLinkComponent />                
+  </Grid>
+
+
+</Grid> */}
 
 
 

@@ -10,6 +10,8 @@ import Button from '@material-ui/core/Button';
 // Src
 import Paper from '@material-ui/core/Paper';
 
+// Assets
+import '../../styles/fonts.css';
 
 const styles = theme => ({
   root: {
@@ -35,9 +37,25 @@ const styles = theme => ({
     textAlign: 'flex-start',
     color: theme.palette.text.secondary,
   },
+  title: {
+    [theme.breakpoints.up('lg')]: {
+      fontSize: "3vw",
+    },
+    [theme.breakpoints.down('md')]: {
+      fontSize: "9vw",
+    },
+    fontFamily: "Roboto Slab"
+  },
   input: {
+    fontFamily: "Roboto Slab",
     width: "100%",
     marginBottom: "15px",
+    [theme.breakpoints.up('lg')]: {
+      fontSize: "1.3vw",
+    },
+    [theme.breakpoints.down('md')]: {
+      fontSize: "5vw",
+    },
   },
   submitRow: {
     flexDirection: "row",
@@ -54,14 +72,15 @@ var poolData = {
 
 function Login(props) {
   const { classes } = props;
-
+  
   return (
     <Paper className={classes.paper}>
-        <Typography>
+      <form onSubmit={props.authenticateUser}>
+        <Typography className={classes.title}>
             Login
         </Typography>
         <Input
-          placeholder="Email"
+          placeholder="username"
           className={classes.input}
           type={"text"}
           value={props.login_email}
@@ -71,7 +90,7 @@ function Login(props) {
           }}
         />
         <Input
-          placeholder="Password"
+          placeholder="password"
           className={classes.input}
           type={"password"}
           value={props.login_password}
@@ -82,6 +101,8 @@ function Login(props) {
         />       
         
         <Button 
+          fullWidth
+          type={"submit"}
           variant="raised" 
           className={classes.button}
           onClick={props.authenticateUser}>
@@ -93,8 +114,8 @@ function Login(props) {
             </Typography>
           : null
         }
-        
-      </Paper>
+      </form>
+    </Paper>
   )};
 
 

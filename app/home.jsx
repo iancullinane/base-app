@@ -13,30 +13,17 @@ import NavBar from 'components/navbar';
 
 // import "components/styles/styles.scss"
 import { awsUser } from 'utils/aws-user';
-import BackGround from "./assets/funky-lines.png"
+import BackGround from "./assets/funky-lines.png";
 
 
-const styles = theme => ({
-    root: {
-        height: "100%",
-      },
-    body: {
-        marginTop: "75px",
-        height: "100%",
-        [theme.breakpoints.down('sm')]: {
-          width: "100%",
-        },
-        [theme.breakpoints.up('md')]: {
-            width: "80%",
-        },
-        [theme.breakpoints.up('lg')]: {
-            width: "70%",
-        },
-        [theme.breakpoints.up('xl')]: {
-            width: "50%",
-        },
-      },
-  });
+import style_imports from 'styles';
+
+// const styles = theme => ({
+//     body: style_imports.main_root,
+//     body: style_imports.body,
+//   });
+
+const styles = style_imports.test;
 
 class Application extends Component {
 
@@ -64,12 +51,15 @@ class Application extends Component {
 
     render(){
         const { classes } = this.props;
-
+    
         // window.localStorage.clear();
         // let loggedIn = awsUser.GetSession();
         return(            
             <div className={classes.root}>
-                <NavBar />
+                {this.state.authorized
+                    ? <NavBar />
+                    : null
+                }
                 <Grid container justify={"center"}>
                     <Grid container spacing={8} className={classes.body}> 
                         {this.state.authorized

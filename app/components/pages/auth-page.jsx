@@ -11,14 +11,12 @@ import Grid from '@material-ui/core/Grid';
 import Signup from 'components/auth/signup'
 import Login from 'components/auth/login'
 import { awsUser } from 'utils/aws-user';
+import { TopLeftComponent} from '../ui/component';
 import EnterCode from 'components/auth/enter-code';
+import style_imports from 'styles';
 
 const styles = {
-  root: {
-    flexGrow: 1,
-    height: "100%",
-    marginTop: "75px",
-  },
+  page_root : style_imports.page_root,
   content: {
     marginTop: "75px",
     height: "100%",
@@ -48,8 +46,8 @@ class LoginPage extends React.Component {
     };
   }
 
-  async authenticateUser(){
-  
+  async authenticateUser(event){
+    event.preventDefault();
     const result = await awsUser.AuthenticateUser(this.state.login_email, this.state.login_password)
       .then((result)=>{
         this.props.toggleAuthed();
@@ -74,8 +72,8 @@ class LoginPage extends React.Component {
             cognitoUser: result.user
           }
         );
-        console.log(`registered`);
-        
+        // console.log(`registered`);
+        this.props.toggleAuthed()        
       }).catch((err)=>{ 
         this.setState({signup_error: err});
       });
@@ -112,14 +110,17 @@ class LoginPage extends React.Component {
 
     return (
       <div>
-          <Grid container alignContent={"center"} justify={"center"} className={classes.root} spacing={16}>
-              <Grid item xs={5}>
+          <Grid container alignContent={"center"} justify={"center"} className={classes.page_root} spacing={16}>
+              <Grid item xs={12} md={12}>
+                <TopLeftComponent />
+              </Grid>
+              <Grid item xs={12} md={12} lg={6}>
                 <Login
                   {...this.state}
                   authenticateUser={this.authenticateUser.bind(this)}
                   onChange={this.handleChange.bind(this)}  /> 
               </Grid>
-              <Grid item xs={5}>
+              <Grid item xs={12} me={12} lg={6}>
                 <Signup
                   {...this.state}
                   signUpUser={this.signUpUser.bind(this)}

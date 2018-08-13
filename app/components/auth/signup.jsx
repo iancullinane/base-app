@@ -32,9 +32,25 @@ const styles = theme => ({
     textAlign: 'flex-start',
     color: theme.palette.text.secondary,
   },
+  title: {
+    [theme.breakpoints.up('lg')]: {
+      fontSize: "3vw",
+    },
+    [theme.breakpoints.down('md')]: {
+      fontSize: "9vw",
+    },
+    fontFamily: "Roboto Slab"
+  },
   input: {
+    fontFamily: "Roboto Slab",
     width: "100%",
     marginBottom: "15px",
+    [theme.breakpoints.up('lg')]: {
+      fontSize: "1.3vw",
+    },
+    [theme.breakpoints.down('md')]: {
+      fontSize: "5vw",
+    },
   },
   submitRow: {
     flexDirection: "row",
@@ -54,7 +70,7 @@ function Signup(props) {
 
   return (
     <Paper className={classes.paper}>
-        <Typography>
+        <Typography className={classes.title}>
             Signup
         </Typography>
         <Input
