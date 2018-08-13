@@ -14,6 +14,9 @@ import CardContent from '@material-ui/core/CardContent';
 
 // Src
 import Track from './track';
+import {
+  CalloutComponent,
+  MessageComponent } from '../ui/message';
 
 import BackGround from "../../assets/funky-lines.png"
 import '../../styles/fonts.css';
@@ -33,19 +36,35 @@ function ImageTest(props){
 }
 
 const styles = theme => ({
-  title: {
-    fontFamily: "Emblema One",
+  mainTitle: {
+    fontFamily: "Bungee Shade",
     color: "black",
     lineHeight: .9,
     margin: 0,
     padding: 0,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: "5vw",
+    },
+    [theme.breakpoints.down('md')]: {
+      textAlign: "center",
+      fontSize: "8.5vw",
+    },
     [theme.breakpoints.up('lg')]: {
-      fontSize: "2vw",
+      fontSize: "5vw",
+    },
+    [theme.breakpoints.up('xl')]: {
+      fontSize: "5vw",
+    },
+    // wordWrap: "break-line"
+  },
+  title: {
+    [theme.breakpoints.up('lg')]: {
+      fontSize: "3vw",
     },
     [theme.breakpoints.down('md')]: {
       fontSize: "9vw",
     },
-    // wordWrap: "break-line"
+    fontFamily: "Roboto Slab"
   },
   padded: {
     padding: theme.spacing.unit * 2,
@@ -73,29 +92,6 @@ const MenuProps = {
     },
 };
 
-function Basic(props) {
-
-  const { classes } = props;
-  
-  return (
-    <Paper>
-      <div className={classes.padded}>
-        <Typography 
-          className={classes.formTitle}
-          variant="headline" 
-          gutterBottom>
-            Some kind of message!
-        </Typography>
-        <Typography 
-          className={classes.formTitle}
-          variant="caption" 
-          gutterBottom>
-            Bootylicious, Facewreck, Additional Generic Weed Variety
-        </Typography>
-      </div>
-    </Paper>
-  )
-};
 
 function TopLeft(props){
   
@@ -104,7 +100,7 @@ function TopLeft(props){
     <Paper className={classes.topLeft}>
       <div className={classes.padded}>
         <Typography 
-          className={classes.title}
+          className={classes.mainTitle}
           variant="display1" 
           gutterBottom>
             Liberty Radio
@@ -113,6 +109,33 @@ function TopLeft(props){
     </Paper>
   )
 }
+
+
+// function Basic(props) {
+
+//   const { classes } = props;
+  
+//   return (
+//     <Paper>
+//       <div className={classes.padded}>
+//         <Typography 
+//           className={classes.title}
+//           variant="headline" 
+//           gutterBottom>
+//             Some kind of message!
+//         </Typography>
+//         <Typography 
+//           className={classes.formTitle}
+//           variant="caption" 
+//           gutterBottom>
+//             Bootylicious, Facewreck, Additional Generic Weed Variety
+//         </Typography>
+//       </div>
+//     </Paper>
+//   )
+// };
+
+
 
 function PlaylistLink(props){
   
@@ -146,34 +169,7 @@ function NowPlaying(props){
   )
 }
 
-function Callout(props){
-  
-  const { classes } = props;
-  return (
-    <Paper>
-      <div className={classes.padded}>
-        <Typography variant={"headline"}>
-          Now Playing @Liberty
-        </Typography>
-        <Typography 
-          variant={"caption"}
-          style={{marginBottom: 10}}
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur accumsan orci vitae ornare varius. Proin placerat felis id eros scelerisque, eget tincidunt augue mattis. 
-        </Typography>
-        
-        {/* <Button 
-          fullWidth
-          variant="outlined" 
-          className={classes.hide}
-        >
-          Hide Panel
-        </Button> */}
-      </div>
 
-    </Paper>
-  )
-}
 
 
 
@@ -199,7 +195,7 @@ function duh(i, obj){
   } else {
     returnObj = 
       <div>
-        <BasicComponent />
+        <MessageComponent />
         <Track track={obj} />
       </div>
   }
@@ -208,20 +204,7 @@ function duh(i, obj){
 }
 
 
-// function track(track){
-//   return(
-//       <Typography 
-//         variant="display1" 
-//         gutterBottom>
-//           {track.name}
-//       </Typography>
-//   )
-// }
 
-
-Basic.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 TopLeft.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -236,20 +219,16 @@ TrackList.propTypes = {
 };
 
 
-const BasicComponent = withStyles(styles)(Basic);
 const TopLeftComponent = withStyles(styles)(TopLeft);
 const PlaylistLinkComponent = withStyles(styles)(PlaylistLink);
 const TrackListComponent = withStyles(styles)(TrackList);
-const CalloutComponent = withStyles(styles)(Callout);
 const NowPlayingComponent = withStyles(styles)(NowPlaying);
 const ImageTestComponent = withStyles(styles)(ImageTest);
 
 export {
-  BasicComponent,
   TopLeftComponent,
   PlaylistLinkComponent,
   TrackListComponent,
-  CalloutComponent,
   NowPlayingComponent,
   ImageTestComponent
 };

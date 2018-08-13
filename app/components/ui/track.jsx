@@ -14,30 +14,48 @@ const styles = theme => ({
     card: {
         display: 'flex',
         marginBottom: "8px",
-      },
-      details: {
+    },
+    details: {
         display: 'flex',
         flexDirection: 'column',
-      },
-      content: {
+        maxWidth: '50%'
+    },
+    content: {
         flex: '1 0 auto',
-      },
-      break: {
+    },
+    break: {
         flexDirection: 'row',
-      },
-      cover: {
+    },
+    cover: {
         [theme.breakpoints.down('xl')]: {
             width: 175,
             height: 175,
         },
         [theme.breakpoints.down('md')]: {
-            width: 150,
-            height: 150,
+            width: 220,
+            height: 220,
         },
-      },
-      text: {
+    },
+    header: {
         fontFamily: "Roboto Slab",
-      },
+        [theme.breakpoints.down('xl')]: {
+            fontSize: "2vw"
+        },
+        [theme.breakpoints.down('md')]: {
+            fontSize: "3.5vw"
+    },
+    },
+    sub_header: {
+        fontFamily: "Roboto Slab",
+        [theme.breakpoints.down('xl')]: {
+            fontSize: "1.5vw"
+        },
+        [theme.breakpoints.down('md')]: {
+            fontSize: "2.5vw"
+        },
+    }
+
+
   });
 function Track(props){
 
@@ -53,11 +71,11 @@ function Track(props){
                         <div className={classes.details}>
                             <CardContent className={classes.content}>
                                 <Typography variant="headline"
-                                    className={classes.text}>
+                                    className={classes.header}>
                                     {props.track.name}
                                 </Typography>
                                 <Typography variant="subheading"
-                                    className={classes.text}>
+                                    className={classes.sub_header}>
                                     {props.track.artist_name}
                                 </Typography>
                             </CardContent>

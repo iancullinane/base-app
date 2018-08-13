@@ -5,6 +5,7 @@
   "main": "/dist/application.js",
   "scripts": {
     "start": "webpack-dev-server",
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -16,7 +17,9 @@
     "aws-sdk": "^2.224.1",
     "react": "^16.3.0",
     "react-cookie": "^2.1.4",
-    "react-dom": "^16.3.0"
+    "react-dom": "^16.3.0",
+    "react-hotkeys": "^1.1.4",
+    "save-dev": "^2.0.0"
   },
   "devDependencies": {
     "styled-components": "^3.3.3",
