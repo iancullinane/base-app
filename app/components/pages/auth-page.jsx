@@ -110,26 +110,26 @@ class LoginPage extends React.Component {
 
     return (
       <div>
-          <Grid container alignContent={"center"} justify={"center"} className={classes.page_root} spacing={16}>
-              <Grid item xs={12} md={12}>
-                <TopLeftComponent />
-              </Grid>
-              <Grid item xs={12} md={12} lg={6}>
-                <Login
-                  {...this.state}
-                  authenticateUser={this.authenticateUser.bind(this)}
-                  onChange={this.handleChange.bind(this)}  /> 
-              </Grid>
-              <Grid item xs={12} me={12} lg={6}>
-                <Signup
-                  {...this.state}
-                  signUpUser={this.signUpUser.bind(this)}
-                  onChange={this.handleChange.bind(this)} 
-                /> 
-              </Grid>
-            </Grid>
-            
-        
+        {/* <Grid container alignContent={"center"} justify={"center"}>
+        </Grid> */}
+        <Grid container alignContent={"center"} justify={"center"} className={classes.page_root} spacing={16}>
+          <Grid item xs={12} md={12}>
+            <TopLeftComponent />
+          </Grid>
+          <Grid item xs={12} md={12} lg={6}>
+            <Login
+              {...this.state}
+              authenticateUser={this.authenticateUser.bind(this)}
+              onChange={this.handleChange.bind(this)}  /> 
+          </Grid>
+          <Grid item xs={12} me={12} lg={6}>
+            <Signup
+              {...this.state}
+              signUpUser={this.signUpUser.bind(this)}
+              onChange={this.handleChange.bind(this)} 
+            /> 
+          </Grid>
+        </Grid>
       </div>
     );
   }

@@ -22,11 +22,13 @@ const styles = theme => ({
   },
   details: {
       display: 'flex',
+      flexGrow: 2,
       flexDirection: 'column',
-      maxWidth: '50%'
+      
   },
   content: {
       flex: '1 0 auto',
+      wordWrap: 'break-word'
   },
   break: {
       flexDirection: 'row',
@@ -37,14 +39,13 @@ const styles = theme => ({
     fontFamily: "Roboto Slab",
   },
   cover: {
-    justifyContent: 'flex-end',
     [theme.breakpoints.down('xl')]: {
         width: 175,
         height: 175,
     },
     [theme.breakpoints.down('md')]: {
-        width: 220,
-        height: 220,
+        width: 200,
+        height: 200,
     },
   },
   header: {
@@ -108,24 +109,22 @@ function Message(props) {
 
     return (
       <Card className={classes.card}>
-        <Grid container className={classes.break}>
-            <div className={classes.details}>
-                <CardContent className={classes.content}>
-                    <Typography variant="headline"
-                        className={classes.header}>
-                        Now @ Liberty Somerville
-                    </Typography>
-                    <Typography variant="subheading"
-                      className={classes.sub_header}>
-                        Ethanol based tinctures
-                    </Typography>
-                </CardContent>
-            </div>
-            <CardMedia
-                className={classes.cover}
-                image={'https://cdn.shopify.com/s/files/1/2225/9555/products/Serenity_Tincture_Main_Image_1c088b72-461e-47f0-aaf8-a2d1db38062b.png?v=1512919209'}
-            />
-        </Grid>
+        <div className={classes.details}>
+            <CardContent className={classes.content}>
+              <Typography variant="headline"
+                className={classes.header}>
+                  Tinctures
+              </Typography>
+              <Typography variant="subheading"
+                className={classes.sub_header}>
+                  Ethanol based tinctures, now at Liberty
+              </Typography>
+            </CardContent>
+        </div>
+        <CardMedia
+            className={classes.cover}
+            image={'https://cdn.shopify.com/s/files/1/2225/9555/products/Serenity_Tincture_Main_Image_1c088b72-461e-47f0-aaf8-a2d1db38062b.png?v=1512919209'}
+        />
       </Card>
     )
     };
