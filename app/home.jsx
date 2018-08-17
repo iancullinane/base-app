@@ -18,12 +18,27 @@ import BackGround from "./assets/funky-lines.png";
 
 import style_imports from 'styles';
 
-// const styles = theme => ({
-//     body: style_imports.main_root,
-//     body: style_imports.body,
-//   });
+const styles = theme => ({
+    main_root: style_imports.main_root,
+    body: {
+        marginTop: "75px",
+        height: "100%",
+        [theme.breakpoints.down('sm')]: {
+            width: "100%",
+        },
+        [theme.breakpoints.down('md')]: {
+            width: "95%",
+        },
+        [theme.breakpoints.up('lg')]: {
+            width: "80%",
+        },
+        [theme.breakpoints.up('xl')]: {
+            width: "50%",
+        },
+    }
+})
 
-const styles = style_imports.test;
+// const styles = style_imports.test;
 
 class Application extends Component {
 
@@ -55,7 +70,7 @@ class Application extends Component {
         // window.localStorage.clear();
         // let loggedIn = awsUser.GetSession();
         return(            
-            <div className={classes.root}>
+            <div className={classes.main_root}>
                 {this.state.authorized
                     ? <NavBar />
                     : null
@@ -72,6 +87,7 @@ class Application extends Component {
         )
     }
 }
+
 
 export default withStyles(styles)(Application);
 

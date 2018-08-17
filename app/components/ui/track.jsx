@@ -35,6 +35,10 @@ const styles = theme => ({
             width: 220,
             height: 220,
         },
+        [theme.breakpoints.down('sm')]: {
+            width: 150,
+            height: 150,
+        },
     },
     header: {
         fontFamily: "Roboto Slab",
@@ -61,30 +65,30 @@ function Track(props){
 
     const { classes } = props;
     return(        
-        <div>
-            <Card className={classes.card}>
-                <Grid container className={classes.break}>
-                        <CardMedia
-                            className={classes.cover}
-                            image={`${props.track.image[3]['#text']}`}
-                        />
-                        <div className={classes.details}>
-                            <CardContent className={classes.content}>
-                                <Typography variant="headline"
-                                    className={classes.header}>
-                                    {props.track.name}
-                                </Typography>
-                                <Typography variant="subheading"
-                                    className={classes.sub_header}>
-                                    {props.track.artist_name}
-                                </Typography>
-                            </CardContent>
-                        </div>
-                </Grid>
+        
+        <Card className={classes.card}>
+            <Grid container className={classes.break}>
+                    <CardMedia
+                        className={classes.cover}
+                        image={`${props.track.image[3]['#text']}`}
+                    />
+                    <div className={classes.details}>
+                        <CardContent className={classes.content}>
+                            <Typography variant="headline"
+                                className={classes.header}>
+                                {props.track.name}
+                            </Typography>
+                            <Typography variant="subheading"
+                                className={classes.sub_header}>
+                                {props.track.artist_name}
+                            </Typography>
+                        </CardContent>
+                    </div>
+            </Grid>
 
 
-            </Card>
-        </div> 
+        </Card>
+        
     )
   }
     

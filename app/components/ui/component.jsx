@@ -36,21 +36,27 @@ function ImageTest(props){
 }
 
 const styles = theme => ({
+  topLeft: {
+    flex: 0,
+  },
   mainTitle: {
-    fontFamily: "Bungee Shade",
-    color: "black",
+    fontFamily: "Pacifico",
+    color: 'black',
+    backgroundClip: 'text',
+    // color: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
     lineHeight: .9,
     margin: 0,
+    marginBottom: 15,
     padding: 0,
     [theme.breakpoints.down('sm')]: {
       fontSize: "5vw",
     },
     [theme.breakpoints.down('md')]: {
       textAlign: "center",
-      fontSize: "8.5vw",
+      fontSize: "9vw",
     },
     [theme.breakpoints.up('lg')]: {
-      fontSize: "5vw",
+      fontSize: "4.5vw",
     },
     [theme.breakpoints.up('xl')]: {
       fontSize: "5vw",
@@ -190,7 +196,7 @@ function TrackList(props){
 
 function duh(i, obj){
   let returnObj;
-  if(i % 5){
+  if(i !== 0 && i % 5){
     returnObj = <Track track={obj} />
   } else {
     returnObj = 
