@@ -10,7 +10,7 @@ ENV PATH $GOPATH/bin:$PATH
 ADD Makefile /go/src/github.com/iancullinane/new-sb-app/Makefile
 ADD main.go /go/src/github.com/iancullinane/new-sb-app/main.go
 ADD server/ /go/src/github.com/iancullinane/new-sb-app/server/
-ADD lastfm/ /go/src/github.com/iancullinane/new-sb-app/lastfm/
+
 
 
 WORKDIR /go/src/github.com/iancullinane/new-sb-app

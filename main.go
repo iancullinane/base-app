@@ -5,7 +5,6 @@ import (
 	// "fmt"
 	"log"
 
-	"github.com/iancullinane/new-sb-app/lastfm"
 	"github.com/iancullinane/new-sb-app/server"
 )
 
@@ -13,7 +12,6 @@ func main() {
 
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
-	tracks := lastfm.New(lastfm.NewHttpClient("ianpants", "57ee3318536b23ee81d6b27e36997cde"))
 	// pdb.Test()
 
 	server := server.SetUpServer(tracks)

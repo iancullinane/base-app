@@ -13,7 +13,7 @@
 import _ from 'underscore';
 import React    from 'react';
 import ReactDOM from 'react-dom';
-
+import MobileDetect from 'mobile-detect';
 import Application from 'home'
 
 
@@ -34,6 +34,9 @@ if (loadedStates.includes(document.readyState) && document.body) {
 } else {
   window.addEventListener('DOMContentLoaded', determinePath, false);
 }
+
+var md = new MobileDetect(window.navigator.userAgent);
+let isPhone = md.phone()
 
 /**
  * Load your route specific JS when needed
@@ -59,6 +62,8 @@ function determinePath() {
 // window.localStorage.clear();
 function launch(urlTokens){
 	ReactDOM.render(
-		<Application urlTokens={urlTokens} />, document.getElementById('root')
+		<Application 
+			urlTokens={urlTokens} i
+			sPhone={isPhone} />, document.getElementById('root')
 	);
 }

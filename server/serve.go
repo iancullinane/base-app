@@ -21,7 +21,7 @@ type Tracks interface {
 // 	OrderHandler(w http.ResponseWriter, r *http.Request)
 // }
 
-func SetUpServer(tracks Tracks) *http.Server {
+func SetUpServer() *http.Server {
 	var entry string
 	var static string
 	var port string
@@ -37,10 +37,10 @@ func SetUpServer(tracks Tracks) *http.Server {
 	// package, given the coupling between them.
 
 	// It's important that this is before your catch-all route ("/")
-	api := mux.PathPrefix("/api/v1/").Subrouter()
+	// api := mux.PathPrefix("/api/v1/").Subrouter()
 	// api.Methods("OPTIONS").Handler(AccountsCreatePreFlight)
 
-	api.HandleFunc("/tracks", tracks.GetTracks).Methods("GET")
+	// api.HandleFunc("/tracks", tracks.GetTracks).Methods("GET")
 
 	// Serve static assets directly.
 	mux.PathPrefix("/dist/").Handler(http.FileServer(http.Dir(static)))
@@ -48,8 +48,8 @@ func SetUpServer(tracks Tracks) *http.Server {
 	// Catch-all: Serve our JavaScript application's entry-point (index.html).
 	mux.PathPrefix("/").HandlerFunc(IndexHandler(entry))
 
+	// Start server
 	fmt.Printf("Starting server on port %s\n", port)
-
 	srv := &http.Server{
 		Handler: handlers.LoggingHandler(os.Stdout, mux),
 		Addr:    ":" + port,
@@ -59,9 +59,9 @@ func SetUpServer(tracks Tracks) *http.Server {
 	}
 
 	return srv
-	// log.Fatal(srv.ListenAndServe())
 }
 
+// IndexHandler is to handle seriving files over dist
 func IndexHandler(entrypoint string) func(w http.ResponseWriter, r *http.Request) {
 	fn := func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, entrypoint)

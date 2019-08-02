@@ -22,14 +22,6 @@ class BasePage extends React.Component {
   }
 
 
-  // Controlled component handler for all fields
-  handleChange = prop => event => {
-    if(prop == "selected_product"){
-      console.log("Updating selected products");
-    }
-    this.setState({ [prop]: event.target.value });
-  };
-
   render(){
     const { classes } = this.props;
 
@@ -38,10 +30,6 @@ class BasePage extends React.Component {
             <Grid container spacing={8}>
               <Grid item xs={4}>
                   <TopLeftComponent />
-                  <PlaylistLinkComponent />
-              </Grid>
-              <Grid item xs={8}>
-                  <BasicComponent />
               </Grid>
             </Grid>
         </div>
