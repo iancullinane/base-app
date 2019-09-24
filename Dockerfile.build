@@ -3,19 +3,18 @@ FROM golang
 # RUN apk --no-cache add git bash go make gcc sqlite
 RUN mkdir -p /go/src /go/pkg /go/bin && chmod -R 777 /go
 
-# ENV GOROOT /usr/lib/go
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:$PATH
 
 ADD Makefile /go/src/github.com/iancullinane/new-sb-app/Makefile
 ADD main.go /go/src/github.com/iancullinane/new-sb-app/main.go
 ADD server/ /go/src/github.com/iancullinane/new-sb-app/server/
-ADD lastfm/ /go/src/github.com/iancullinane/new-sb-app/lastfm/
+ADD server/lastfm/ /go/src/github.com/iancullinane/new-sb-app/server/lastfm/
 
 
 WORKDIR /go/src/github.com/iancullinane/new-sb-app
 
-# CMD ["ls", "-la"]
+
 RUN go get ./...
 RUN go install ./...
 CMD ["make", "go-build"]

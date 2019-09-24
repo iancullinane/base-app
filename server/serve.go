@@ -15,6 +15,10 @@ type Tracks interface {
 	GetTracks(w http.ResponseWriter, r *http.Request)
 }
 
+type Slack interface {
+	Event(w http.ResponseWriter, r *http.Request)
+}
+
 // type PestoDb interface {
 // 	GetVendors(w http.ResponseWriter, r *http.Request)
 // 	GetProducts(w http.ResponseWriter, r *http.Request)
@@ -40,7 +44,11 @@ func SetUpServer(tracks Tracks) *http.Server {
 	api := mux.PathPrefix("/api/v1/").Subrouter()
 	// api.Methods("OPTIONS").Handler(AccountsCreatePreFlight)
 
+	// lastfm methods
 	api.HandleFunc("/tracks", tracks.GetTracks).Methods("GET")
+
+	// slack methods
+	// api.HandleFunc("/slack", slack.Event).Methods("POST")
 
 	// Serve static assets directly.
 	mux.PathPrefix("/dist/").Handler(http.FileServer(http.Dir(static)))
@@ -59,7 +67,6 @@ func SetUpServer(tracks Tracks) *http.Server {
 	}
 
 	return srv
-	// log.Fatal(srv.ListenAndServe())
 }
 
 func IndexHandler(entrypoint string) func(w http.ResponseWriter, r *http.Request) {

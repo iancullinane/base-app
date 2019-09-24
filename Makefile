@@ -14,15 +14,15 @@ all: clean
 	@echo ""
 	docker build --build-arg ENVIRONMENT_VARIABLE=${ENVIRONMENT} \
 		--build-arg PORT=$(PORT) \
-		-t ${IMAGE_NAME} .
+		-t ${IMAGE_NAME} 
 	@echo "${IMAGE_NAME} Wmakas created from project ${NAME}"
 
 
 go-build: 
-	go build -o output/$(NAME)
+	go build -o output/$(NAME)	
 
 run: go-build
-	./${NAME}
+	./output/${NAME}
 
 docker-build: 
 	docker build --no-cache -t build-container -f Dockerfile.build .

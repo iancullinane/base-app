@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 // vendor
 import Grid from '@material-ui/core/Grid';
 
+
 // source
 import LoginPage from 'components/pages/auth-page';
 import NowPlaying from 'components/pages/now-playing';
@@ -46,7 +47,8 @@ class Application extends Component {
         super(props);
         this.state = {
             session: null,
-            authorized: false
+            authorized: false,
+            isPhone: props.isPhone,
         }
         console.log("Launch pesto app");
     }
@@ -66,7 +68,9 @@ class Application extends Component {
 
     render(){
         const { classes } = this.props;
-    
+        
+ 
+        
         // window.localStorage.clear();
         // let loggedIn = awsUser.GetSession();
         return(            
@@ -78,7 +82,7 @@ class Application extends Component {
                 <Grid container justify={"center"}>
                     <Grid container spacing={8} className={classes.body}> 
                         {this.state.authorized
-                            ? <NowPlaying />
+                            ? <NowPlaying {...this.state} />
                             : <LoginPage toggleAuthed={this.toggleAuthed.bind(this)} /> 
                         }
                     </Grid>

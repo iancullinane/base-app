@@ -16,7 +16,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Track from './track';
 import {
   CalloutComponent,
-  MessageComponent } from '../ui/message';
+  MessageComponent,
+  MessageTwoComponent } from '../ui/message';
 
 import BackGround from "../../assets/funky-lines.png"
 import '../../styles/fonts.css';
@@ -185,7 +186,7 @@ function TrackList(props){
 
   let river = _.map(props.tracks, (obj, i) =>
     <div key={i}>
-      {duh(i, obj)}
+      {determineMsg(i, obj)}
     </div>
   )
 
@@ -194,18 +195,23 @@ function TrackList(props){
   )
 }
 
-function duh(i, obj){
+function determineMsg(i, obj){
   let returnObj;
-  if(i !== 0 && i % 5){
-    returnObj = <Track track={obj} />
-  } else {
+  if(i == 4){
     returnObj = 
       <div>
         <MessageComponent />
         <Track track={obj} />
       </div>
+  } else if(i == 7) {
+    returnObj = 
+      <div>
+        <MessageTwoComponent />
+        <Track track={obj} />
+      </div>
+  } else {
+    returnObj = <Track track={obj} />
   }
-
   return returnObj
 }
 

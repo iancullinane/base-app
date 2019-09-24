@@ -20,6 +20,7 @@ import { getTracks } from '../data/tracks';
 const styles = theme => ({
   body: {
     flexGrow: 1,
+    justifyContent: "center",
   },
   more_btn: {
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -74,13 +75,21 @@ class NowPlaying extends React.Component {
 
     return (
         <div className={classes.body}>
-            <Grid container spacing={8}>
-              <Grid item xs={12} sm={12} md={4} lg={4}>
+            <Grid justify={"center"} container spacing={8}>
+              <Grid item 
+                xs={12} 
+                sm={11} 
+                md={this.props.isPhone ? 11 : 4} 
+                lg={4}>
                   <TopLeftComponent />
                   <CalloutComponent />
                   <PlaylistLinkComponent />
               </Grid>
-              <Grid item xs={12} sm={12} md={8} lg={8}>
+              <Grid item 
+                xs={12} 
+                sm={11} 
+                md={this.props.isPhone ? 11 : 8}
+                lg={8}>
                   {this.state.tracks 
                     ? <TrackListComponent tracks={this.state.tracks} />
                     : null

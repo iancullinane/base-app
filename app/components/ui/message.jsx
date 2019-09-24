@@ -105,29 +105,55 @@ function Callout(props){
 
 function Message(props) {
 
-    const { classes } = props;
+  const { classes } = props;
 
-    return (
-      <Card className={classes.card}>
-        <div className={classes.details}>
-            <CardContent className={classes.content}>
-              <Typography variant="headline"
-                className={classes.header}>
-                  Tinctures
-              </Typography>
-              <Typography variant="subheading"
-                className={classes.sub_header}>
-                  Ethanol based tinctures, now at Liberty
-              </Typography>
-            </CardContent>
-        </div>
-        <CardMedia
-            className={classes.cover}
-            image={'https://cdn.shopify.com/s/files/1/2225/9555/products/Serenity_Tincture_Main_Image_1c088b72-461e-47f0-aaf8-a2d1db38062b.png?v=1512919209'}
-        />
-      </Card>
-    )
-    };
+  return (
+    <Card className={classes.card}>
+      <div className={classes.details}>
+          <CardContent className={classes.content}>
+            <Typography variant="headline"
+              className={classes.header}>
+                Tinctures
+            </Typography>
+            <Typography variant="subheading"
+              className={classes.sub_header}>
+                Ethanol based tinctures, now at Liberty
+            </Typography>
+          </CardContent>
+      </div>
+      <CardMedia
+        className={classes.cover}
+        image={'https://cdn.shopify.com/s/files/1/2225/9555/products/Serenity_Tincture_Main_Image_1c088b72-461e-47f0-aaf8-a2d1db38062b.png?v=1512919209'}
+      />
+    </Card>
+  )
+};
+
+function MessageTwo(props) {
+
+  const { classes } = props;
+
+  return (
+    <Card className={classes.card}>
+      <div className={classes.details}>
+          <CardContent className={classes.content}>
+            <Typography variant="headline"
+              className={classes.header}>
+                CDB Oil now available
+            </Typography>
+            <Typography variant="subheading"
+              className={classes.sub_header}>
+                Other messaging
+            </Typography>
+          </CardContent>
+      </div>
+      <CardMedia
+        className={classes.cover}
+        image={'https://stickyguide.imgix.net/product_photos/224228/original-1523035942.JPG?auto=format&fm=jpg&q=85&w=1000&h=1000'}
+      />
+    </Card>
+  )
+};
 
 
 Callout.propTypes = {
@@ -139,13 +165,19 @@ Message.propTypes = {
 };
   
 
+MessageTwo.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
 const CalloutComponent = withStyles(styles)(Callout);
 const MessageComponent = withStyles(styles)(Message);
+const MessageTwoComponent = withStyles(styles)(MessageTwo);
 
   
 export {
   CalloutComponent,
   MessageComponent,
+  MessageTwoComponent,
 };
   
   
