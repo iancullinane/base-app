@@ -28,7 +28,7 @@ module.exports = {
     extensions: ['.js', '.jsx']
   },
   module:{
-    loaders:[      
+    rules:[      
       {
         test:/\.css$/,
         // the are used in reverse order, output of sass-loader->css-loader->
@@ -61,7 +61,7 @@ module.exports = {
   plugins: [
     // new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      title: 'Liberty Radio',
+      title: 'Base Application',
       template: './app/styles/index-template.html',
       inject: true,
     }),

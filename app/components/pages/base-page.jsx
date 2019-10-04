@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 // Src
-import { BasicComponent, TopLeftComponent, PlaylistLinkComponent } from '../ui/component';
+import { BasicComponent, TitlePanelComponent } from '../ui/component';
 
 const styles = theme => ({
   body: {
@@ -22,26 +22,16 @@ class BasePage extends React.Component {
   }
 
 
-  // Controlled component handler for all fields
-  handleChange = prop => event => {
-    if(prop == "selected_product"){
-      console.log("Updating selected products");
-    }
-    this.setState({ [prop]: event.target.value });
-  };
-
   render(){
     const { classes } = this.props;
 
     return (
         <div className={classes.body}>
             <Grid container spacing={8}>
-              <Grid item xs={4}>
-                  <TopLeftComponent />
-                  <PlaylistLinkComponent />
-              </Grid>
-              <Grid item xs={8}>
-                  <BasicComponent />
+              <Grid item xs={12}>
+                  <TitlePanelComponent
+                    title={this.props.config.title}
+                  />
               </Grid>
             </Grid>
         </div>
