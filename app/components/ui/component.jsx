@@ -80,7 +80,6 @@ const styles = theme => ({
   },
 });
 
-
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -92,9 +91,7 @@ const MenuProps = {
     },
 };
 
-
 function TitlePanel(props){
-  
   const { classes } = props;
   return (
     <Paper className={classes.topLeft}>
@@ -109,12 +106,6 @@ function TitlePanel(props){
     </Paper>
   )
 }
-
-
-
-
-
-
 
 TitlePanel.propTypes = {
   classes: PropTypes.object.isRequired,
