@@ -63,6 +63,7 @@ function determinePath() {
  */
 // window.localStorage.clear();
 function launch(urlTokens){
+
 	ReactDOM.render(
 		<Application 
 			config={config}

@@ -1,6 +1,6 @@
 // react
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 
 // vendor
 import Grid from '@material-ui/core/Grid';
@@ -8,12 +8,39 @@ import Grid from '@material-ui/core/Grid';
 // source
 import BasePage from 'components/pages/base-page';
 import NavBar from 'components/navbar';
+import LoginPage from 'components/pages/auth-page';
 
 import { awsUser } from 'utils/aws-user';
 
 
 
 import style_imports from 'styles';
+
+// const styles = theme => ({
+
+//     '@global': {
+//         body: {
+//             backgroundColor: theme.palette.common.white,
+//         },
+//     },
+//     paper: {
+//         marginTop: theme.spacing(8),
+//         display: 'flex',
+//         flexDirection: 'column',
+//         alignItems: 'center',
+//     },
+//     avatar: {
+//         margin: theme.spacing(1),
+//         backgroundColor: theme.palette.secondary.main,
+//     },
+//     form: {
+//         width: '100%', // Fix IE 11 issue.
+//         marginTop: theme.spacing(1),
+//     },
+//     submit: {
+//         margin: theme.spacing(3, 0, 2),
+//     },
+// });
 
 const styles = theme => ({
     main_root: style_imports.main_root,
@@ -64,11 +91,7 @@ class Application extends Component {
 
     render(){
         const { classes } = this.props;
-        
- 
-        
-        // window.localStorage.clear();
-        // let loggedIn = awsUser.GetSession();
+
         return(            
             <div className={classes.main_root}>
                 {this.state.authorized
@@ -80,10 +103,10 @@ class Application extends Component {
                         <BasePage 
                             config={this.props.config}
                         />
-                        {/* {this.state.authorized
+                        {this.state.authorized
                             ? <BasePage  />
                             : <LoginPage toggleAuthed={this.toggleAuthed.bind(this)} /> 
-                        } */}
+                        }
                     </Grid>
                 </Grid>
             </div>

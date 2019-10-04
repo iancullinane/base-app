@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Input from '@material-ui/core/Input';
 
 import Button from '@material-ui/core/Button';
-import { Paper } from '@material-ui/core/Paper';
+import Paper  from '@material-ui/core/Paper';
 
 // Src
 
@@ -31,7 +31,7 @@ const styles = theme => ({
   },
   paper: {
     margin: "auto",
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     textAlign: 'flex-start',
     color: theme.palette.text.secondary,
   },

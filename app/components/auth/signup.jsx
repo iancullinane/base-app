@@ -28,7 +28,7 @@ const styles = theme => ({
   },
   paper: {
     margin: "auto",
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     textAlign: 'flex-start',
     color: theme.palette.text.secondary,
   },
@@ -115,7 +115,7 @@ function Signup(props) {
         />
         
         <Button 
-          variant="raised" 
+          variant="contained" 
           className={classes.button}
           onClick={props.signUpUser}>
             Register User

@@ -4,7 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: './app/main.jsx',
+  entry: ['@babel/polyfill', './app/main.jsx'],
   devtool: 'source-map',
   output: {
     filename: '[name].bundle.js',
@@ -41,6 +41,7 @@ module.exports = {
           'file-loader'
         ]
       },
+      // { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
@@ -48,11 +49,11 @@ module.exports = {
             loader: 'babel-loader',
             query: {
               // If you set something here, also set it in .babelrc
-              presets: ['es2016', 'react'],
+              presets: ['@babel/preset-env', '@babel/preset-react'],
               plugins: [
                 'transform-class-properties',
                 'syntax-async-functions',
-                'transform-decorators'
+                // 'transform-decorators'
               ]
           }
         }

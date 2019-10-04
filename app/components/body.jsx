@@ -14,7 +14,7 @@ const styles = theme => ({
     // padding: 20,
   },
   paper: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     textAlign: 'flex-start',
     color: theme.palette.text.secondary,
   },
@@ -26,7 +26,7 @@ function GridWrapperComponent(props){
   
   return (
     <div className={classes.root}>
-      <Grid container spacing={24}>
+      <Grid container >
         {props.children}
       </Grid>
     </div>
@@ -38,7 +38,7 @@ function PaperTemplateComponent(props) {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={24}>
+      <Grid container >
         <Grid item xs={props.size}>
           <Paper className={classes.paper}>
             {props.children}

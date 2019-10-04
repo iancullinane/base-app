@@ -67,12 +67,12 @@ const styles = theme => ({
     fontFamily: "Roboto Slab"
   },
   padded: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     marginBottom: "14px",
     fontFamily: "Roboto Slab",
   },
   hide:{
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     marginBottom: 10,
   },
   button: {
@@ -101,7 +101,7 @@ function TitlePanel(props){
       <div className={classes.padded}>
         <Typography 
           className={classes.mainTitle}
-          variant="display1" 
+          variant="h1" 
           gutterBottom>
             {props.title}
         </Typography>

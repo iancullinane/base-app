@@ -33,7 +33,7 @@ const styles = theme => ({
   },
   paper: {
     margin: "auto",
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     textAlign: 'flex-start',
     color: theme.palette.text.secondary,
   },
@@ -103,7 +103,7 @@ function Login(props) {
         <Button 
           fullWidth
           type={"submit"}
-          variant="raised" 
+          variant="contained" 
           className={classes.button}
           onClick={props.authenticateUser}>
             Login User
@@ -119,9 +119,9 @@ function Login(props) {
   )};
 
 
-Login.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+// Login.propTypes = {
+//   classes: PropTypes.object.isRequired,
+// };
 
 export default withStyles(styles)(Login);
 
