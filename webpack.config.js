@@ -1,34 +1,14 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const merge = require('webpack-merge');
+const common = require('./webpack.common.js');
 const webpack = require('webpack');
 
-module.exports = {
-  entry: './app/main.jsx',
-  devtool: 'source-map',
-  output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: 'dist/'
-  },
-  devServer: {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-      "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
-    },
-    contentBase: './dist/',
-    hot: true
-  },
-  resolve: {
-    modules: [    
-      path.resolve('./app'),
-      path.resolve('./node_modules')
-    ],
-    extensions: ['.js', '.jsx']
-  },
+module.exports = merge(common, {
+  mode: "development",
   module:{
-    loaders:[      
+    rules:[      
       {
         test:/\.css$/,
         // the are used in reverse order, output of sass-loader->css-loader->
@@ -48,24 +28,15 @@ module.exports = {
             loader: 'babel-loader',
             query: {
               // If you set something here, also set it in .babelrc
-              presets: ['es2016', 'react'],
+              presets: ['@babel/preset-env', '@babel/preset-react'],
               plugins: [
                 'transform-class-properties',
                 'syntax-async-functions',
-                'transform-decorators'
+                // 'transform-decorators'
               ]
           }
         }
       }]
   },
-  plugins: [
-    // new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin({
-      title: 'Liberty Radio',
-      template: './app/styles/index-template.html',
-      inject: true,
-    }),
-    new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin()
-  ],
-};
+
+});
